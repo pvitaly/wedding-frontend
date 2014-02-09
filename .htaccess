@@ -1,0 +1,6 @@
+AddType font/woff .woff
+AddType application/font-woff .woff
+AddType font/ttf .ttf
+AddType application/font-ttf .ttf
+
+ErrorDocument 404 /404.html

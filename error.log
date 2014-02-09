@@ -1,0 +1,5 @@
+[Sat Feb 08 21:01:52.959038 2014] [authz_core:debug] [pid 9028:tid 1548] mod_authz_core.c(799): [client 127.0.0.1:50546] AH01626: authorization result of Require all granted: granted
+[Sat Feb 08 21:01:52.959038 2014] [authz_core:debug] [pid 9028:tid 1548] mod_authz_core.c(799): [client 127.0.0.1:50546] AH01626: authorization result of <RequireAny>: granted
+[Sat Feb 08 21:01:52.962039 2014] [core:info] [pid 9028:tid 1548] [client 127.0.0.1:50546] AH00128: File does not exist: C:/Users/vpeker/kendraandvitalywedding/asd
+[Sat Feb 08 21:01:52.973039 2014] [authz_core:debug] [pid 9028:tid 1548] mod_authz_core.c(799): [client 127.0.0.1:50546] AH01626: authorization result of Require all granted: granted, referer: http://wedding-local/asd
+[Sat Feb 08 21:01:52.974039 2014] [authz_core:debug] [pid 9028:tid 1548] mod_authz_core.c(799): [client 127.0.0.1:50546] AH01626: authorization result of <RequireAny>: granted, referer: http://wedding-local/asd
