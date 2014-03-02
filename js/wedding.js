@@ -163,7 +163,11 @@ $(document).ready(function() {
     $('#ceremony-map').zoom({
         magnify: 1
     });
-
+    
+    $('#rsvpCodeModal').on('shown.bs.modal', function() {
+       $('#rsvpCode').focus(); 
+    });
+    
     $('#codeSubmitBtn').on('click', function() {
 
         $.ajax({
@@ -179,6 +183,17 @@ $(document).ready(function() {
             if ($.isEmptyObject(data)) {
                 $('#rsvpCodeModal').effect("shake");
                 $("#rsvpCode").val('');
+                return;
+            }
+
+            if (data.guestStatusEnum !== "WAITING") {
+                $('#rsvpCodeModal').modal('hide');
+                $("#rsvpCode").val('');
+
+                $('#rsvpMessage').text("Uh oh, it looks like you have already responded! If you think you made a mistake, give us a call!");
+                $('#rsvpMessageModal').modal('show');
+
+
                 return;
             }
 
@@ -225,7 +240,7 @@ $(document).ready(function() {
         var plusOne = $('#plusOne');
         var numberOfKids = $('#numberOfKids');
         var messageFromGuest = $('#messageFromGuest');
-        
+
         if (plusOne.val() === "") {
             plusOne.val(false);
         }
