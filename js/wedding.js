@@ -65,57 +65,6 @@ function didLoadInstagram(event, response) {
 
 $(document).ready(function() {
 
-//    $('#rsvpCodeForm').validate({
-//        submitHandler: function(form) {
-//            $.ajax({
-//                type: "GET",
-//                url: "rest/getGuest?uniqueId=" + $("#rsvpCode").val(),
-//                error: function(xhr, status, error) {
-//                    $('#rsvpCodeModal').effect("shake");
-//                    $("#rsvpCode").val('');
-//                }
-//            }).done(function(data) {
-//
-//                // if code not found, display message and exit out of this ajax call
-//                if ($.isEmptyObject(data)) {
-//                    $('#rsvpCodeModal').effect("shake");
-//                    $("#rsvpCode").val('');
-//                    return;
-//                }
-//
-//                $('#rsvpCodeModal').modal('hide');
-//                $("#rsvpCode").val('');
-//
-//                $('#guestName').val(data.firstName + ' ' + data.lastName);
-//
-//                if (!data.plusOneAllowed) {
-//                    $('#plusOneDecision').hide();
-//                    noPlusOne();
-//                } else {
-//                    $('#yesPlusOne').button('toggle');
-//                    if (data.plusOneFirstName !== '') {
-//                        $('#plusOneName').val(data.plusOneFirstName + ' ' + data.plusOneLastName);
-//                    }
-//                }
-//
-//                $('#rsvpModal').modal('show');
-//            });
-//        },
-//        rules: {
-//            rsvpCode: {
-//                required: true,
-//                rangelength: [5, 5]
-//            }
-//        },
-//        messages: {
-//            rsvpCode: {
-//                required: "Please enter your RSVP code.",
-//                rangelength: "RSVP code must be 5 characters long."
-//            },
-//        }
-//    });
-
-
     $('.instagram').on('didLoadInstagram', didLoadInstagram);
 
     $('.instagram').instagram({
@@ -134,15 +83,15 @@ $(document).ready(function() {
 
     $('#fixednav li a').on('click', function() {
 
-        if ($('.navbar-toggle').css('display') != 'none') {
+        if ($('.navbar-toggle').css('display') !== 'none') {
             $('.navbar-toggle').click();
         }
 
-        if ($(this).data('id') == 'rsvp') {
+        if ($(this).data('id') === 'rsvp') {
             return;
         }
 
-        if ($(this).data('id') == 'home') {
+        if ($(this).data('id') === 'home') {
             $('#fixednav li').each(function() {
                 $(this).find('a').css('color', '');
                 $($(this).find('a').data('id')).fadeOut("slow", "linear");
@@ -163,11 +112,11 @@ $(document).ready(function() {
     $('#ceremony-map').zoom({
         magnify: 1
     });
-    
+
     $('#rsvpCodeModal').on('shown.bs.modal', function() {
-       $('#rsvpCode').focus(); 
+        $('#rsvpCode').focus();
     });
-    
+
     $('#codeSubmitBtn').on('click', function() {
 
         $.ajax({
@@ -193,7 +142,6 @@ $(document).ready(function() {
                 $('#rsvpMessage').text("Uh oh, it looks like you have already responded! If you think you made a mistake, give us a call!");
                 $('#rsvpMessageModal').modal('show');
 
-
                 return;
             }
 
@@ -218,6 +166,12 @@ $(document).ready(function() {
                 $('#partySizeDiv').show();
             }
 
+            if (data.isInWeddingParty) {
+                $("#helpText").text("You must be in the wedding party... select from below.")
+                $('#acceptText').text("I have to come!");
+                $('#declineText').text("Wait... is this optional?!?");
+                $('#declineLabel').attr("id", "acceptLabel2");
+            }
             $('#rsvpModal').modal('show');
         });
 
@@ -265,13 +219,21 @@ $(document).ready(function() {
 
             $('#rsvpMessage').text("Thank you for accepting our invitation. We cannot wait to spend our most special day with you!");
             $('#rsvpMessageModal').modal('show');
+
+            cleanUpRsvpModal();
         });
     }
 
     function declineRsvp() {
+        var messageFromGuest = $('#messageFromGuest');
+
+        if (messageFromGuest.val() === "") {
+            messageFromGuest.val("null");
+        }
+
         $.ajax({
             type: "PUT",
-            url: "rest/decline/" + $("#guestCode").val() + "/" + $('#messageFromGuest').val(),
+            url: "rest/decline/" + $("#guestCode").val() + "/" + messageFromGuest.val(),
             error: function(xhr, status, error) {
                 $('#rsvpModal').effect("shake");
             }
@@ -280,29 +242,63 @@ $(document).ready(function() {
 
             $('#rsvpMessage').text("Thank you for taking the time to respond to our invitation. Our regrets you will not be able to make it, but we hope to see you soon.");
             $('#rsvpMessageModal').modal('show');
+
+            cleanUpRsvpModal();
         });
     }
 
-    $('#accept').on('change', function() {
+    function cleanUpRsvpModal() {
+        $('#guestCode').val("");
+        $('#response').val("");
+        $('#plusOne').val("");
+        $('#bringingKids').val("");
+        $('#numberOfKids').val("");
+        $('#messageFromGuest').val("");
+        $('#acceptLabel').removeClass('active');
+        $('#declineLabel').removeClass('active');
+        $('#yesPlusOneLabel').removeClass('active');
+        $('#noPlusOneLabel').removeClass('active');
+        $('#partySize').val('');
+        $("#helpText").text("Select from the options below.")
+        $('#acceptText').text("I Accept");
+        $('#declineText').text("I Decline");
+        $('#declineLabel').attr("id", "declineLabel");
+        $('#acceptLabel2').attr("id", "declineLabel");
+        $('#partySizeDiv').hide();
+        noPlusOne();
+    }
+
+    $('#rsvpModal').on('click', '#acceptLabel', function() {
         $('#response').val("accept");
     });
 
-    $('#decline').on('change', function() {
+    $('#rsvpModal').on('click', '#acceptLabel2', function(event) {
+        event.stopImmediatePropagation();
+        $('#response').val("accept");
+        $('#declineLabel').removeClass('active');
+        $('#acceptLabel').addClass('active');
+    });
+
+    $('#rsvpModal').on('click', '#declineLabel', function() {
         $('#response').val("decline");
     });
 
-    $('#noPlusOne').on('change', function() {
+    $('#rsvpModal').on('change', '#noPlusOne', function() {
         $('#plusOne').val(false);
         noPlusOne();
     });
 
-    $('#yesPlusOne').on('change', function() {
+    $('#rsvpModal').on('change', '#yesPlusOne', function() {
         $('#plusOne').val(true);
         yesPlusOne();
     });
 
-    $('#partySize').on('change', function() {
+    $('#rsvpModal').on('change', '#partySize', function() {
         $('#numberOfKids').val($(this).val());
+    });
+
+    $('#rsvpCloseBtn').on('click', function() {
+        cleanUpRsvpModal();
     });
 
     function noPlusOne() {

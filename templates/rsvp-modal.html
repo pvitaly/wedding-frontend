@@ -44,23 +44,23 @@
                 <input type="hidden" id="plusOne" value="" />
                 <input type="hidden" id="bringingKids" value="" />
                 <input type="hidden" id="numberOfKids" value="" />
-                <div class="form-group"><h5>Select from the options below.</h5></div>
+                <div class="form-group"><h5><span id="helpText">Select from the options below.</span></h5></div>
                 <div class="form-group">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" name="options" id="accept">I Accept
+                        <label id="acceptLabel" class="btn btn-success">
+                            <input type="radio" name="options" id="accept"><span id="acceptText">I Accept</span>
                         </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" name="options" id="decline">I Decline
+                        <label id="declineLabel" class="btn btn-danger">
+                            <input type="radio" name="options" id="decline"><span id="declineText">I Decline</span>
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div id="plusOneDecision" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info">
+                        <label id="yesPlusOneLabel" class="btn btn-info">
                             <input type="radio" name="options" id="yesPlusOne">Bringing a Date
                         </label>
-                        <label class="btn btn-info">
+                        <label id="noPlusOneLabel" class="btn btn-info">
                             <input type="radio" name="options" id="noPlusOne">Flying Solo
                         </label>
                     </div>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="form-group" align="center">
-                    <button type="reset" class="btn" data-dismiss="modal">Close</button>
+                    <button type="reset" class="btn" data-dismiss="modal" id="rsvpCloseBtn">Close</button>
                     <button type="button" class="btn btn-primary" id="rsvpSubmitBtn">Submit</button>
                 </div>
             </div>
