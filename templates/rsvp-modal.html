@@ -8,25 +8,28 @@
                 <h4 class="modal-title" id="myModalLabel" align="center">Répondez
                     s'il Vous Plaît</h4>
             </div>
-            <div class="modal-body" align="center">
+            <form id="rsvpCodeForm">
+                <div class="modal-body" align="center">
 
-                <div class="form-group" align="center">
-                    <input type="text" name="rsvpCode"
-                           class="form-control input-small" id="rsvpCode"
-                           placeholder="RSVP CODE FROM INVITATION"
-                           style="text-align: center;">
+                    <div class="form-group" align="center">
+                        <input type="text" name="rsvpCode"
+                               class="form-control input-small" id="rsvpCode"
+                               placeholder="RSVP CODE FROM INVITATION"
+                               style="text-align: center;">
+                    </div>
+                    <div class="form-group" align="center">
+                        <button type="reset" class="btn" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="codeSubmitBtn">Submit</button>
+                    </div>
                 </div>
-                <div class="form-group" align="center">
-                    <button type="reset" class="btn" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="codeSubmitBtn">Submit</button>
-                </div>
-            </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
 
 <div class="modal fade" id="rsvpModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -48,12 +51,13 @@
                 <div class="form-group">
                     <div class="btn-group" data-toggle="buttons">
                         <label id="acceptLabel" class="btn btn-success">
-                            <input type="radio" name="options" id="accept"><span id="acceptText">I Accept</span>
+                            <input type="radio" name="options" id="accept" value=""><span id="acceptText">I Accept</span>
                         </label>
                         <label id="declineLabel" class="btn btn-danger">
-                            <input type="radio" name="options" id="decline"><span id="declineText">I Decline</span>
+                            <input type="radio" name="options" id="decline" value=""><span id="declineText">I Decline</span>
                         </label>
                     </div>
+                    <div id="responseError" class="error" style="display: none">Please make a decision.</div>
                 </div>
                 <div class="form-group">
                     <div id="plusOneDecision" class="btn-group" data-toggle="buttons">
@@ -64,12 +68,13 @@
                             <input type="radio" name="options" id="noPlusOne">Flying Solo
                         </label>
                     </div>
+                    <div id="plusOneError" class="error" style="display: none">Please make a decision.</div>
                 </div>
                 <div class="form-group">
                     <div id="partySizeDiv" class="btn-group">
                         <label for="partySize">Total number of people attending: </label>
-                        <select id="partySize">
-                            <option value="...">...</option>
+                        <select name="partySize" id="partySize">
+                            <option value="">...</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -78,6 +83,7 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+                    <div id="kidsError" class="error" style="display: none">Please make a decision.</div>
                 </div>
                 <div class="row">
                     <div id="guestNameDiv" class="form-group col-lg-12" align="center">
@@ -109,6 +115,36 @@
     <!-- /.modal-dialog -->
 </div>
 
+<!--This modal acts as a confirmation of what the user selected in the RSVP modal-->
+<div class="modal fade" id="rsvpConfirmModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel" align="center">Répondez
+                    s'il Vous Plaît</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="form-group" align="center">
+                    <h4 id="rsvpConfirmMessage">Please confirm your selections below.</h4>
+                </div>
+                <div id="confirmMessageDiv" class="form-group" align="center">
+                </div>
+                <div class="form-group" align="center">
+                    <button type="reset" class="btn" data-dismiss="modal" id="rsvpConfirmGoBackBtn">Go Back</button>
+                    <button type="button" class="btn btn-primary" id="rsvpConfirmBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!--This modal is to display thank you message for RSVPing and telling them if they accepted or decline-->
 <div class="modal fade" id="rsvpMessageModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

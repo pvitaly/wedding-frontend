@@ -4,6 +4,11 @@ label {
     font-weight: normal;
 }
 
+.error {
+    padding-top: 5px;
+    color: red;
+}
+
 label:hover {
     cursor: pointer;
 }
@@ -556,4 +561,8 @@ body {
 
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
     background-color: blue;
+}
+.greyout {
+    background-color: gray;
+    border-color: gray;
 }
