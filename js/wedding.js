@@ -119,11 +119,7 @@ $(document).ready(function() {
     $('#ceremony-map').zoom({
         magnify: 1
     });
-
-    $('#rsvpCodeModal').on('shown.bs.modal', function() {
-        $('#rsvpCode').focus();
-    });
-
+    
     $('#rsvpCodeForm').submit(function() {
         return false;
     });
@@ -339,7 +335,7 @@ $(document).ready(function() {
         doConfirmModal();
 
     });
-    
+
     function doConfirmModal() {
         $('#rsvpModal').modal('hide');
         $('#rsvpConfirmModal').modal('show');
@@ -568,6 +564,14 @@ $(document).ready(function() {
         $('#guestNameDiv').removeClass('col-lg-12');
         $('#guestNameDiv').addClass('col-lg-6');
     }
+
+    $('#rsvpCodeModal').on('shown.bs.modal', function() {
+        $('#rsvpCode').focus();
+    });
+
+    $('#rsvpModal').on('hide.bs.modal', function() {
+        cleanUpRsvpModal();
+    });
 
     $('.carousel').carousel({
         interval: false
