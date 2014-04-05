@@ -569,9 +569,9 @@ $(document).ready(function() {
         $('#rsvpCode').focus();
     });
 
-    $('#rsvpModal').on('hide.bs.modal', function() {
-        cleanUpRsvpModal();
-    });
+//    $('#rsvpModal').on('hide.bs.modal', function() {
+//        cleanUpRsvpModal();
+//    });
 
     $('.carousel').carousel({
         interval: false
